@@ -915,7 +915,7 @@ DWORD GetCurrentThreadId(VOID)
 	/* Since pthread_t can be 64-bits on some systems, take just the    */
 	/* lower 32-bits of it for the thread ID returned by this function. */
 	uintptr_t ptid = WINPR_REINTERPRET_CAST(tid, pthread_t, uintptr_t);
-	return ptid & UINT32_MAX;
+	return (ptid & UINT32_MAX) ^ (ptid >> 32);
 }
 
 typedef struct
